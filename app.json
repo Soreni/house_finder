@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "flower_crib",
-    "slug": "flower_crib",
+    "name": "house_finder",
+    "slug": "house_finder",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
