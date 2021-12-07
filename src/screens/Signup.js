@@ -96,7 +96,6 @@ import {
                      {({handleChange, handleBlur, handleSubmit,touched,errors, values})=>
                      <StyledFormArea>
                          <MyTextInput
-                     
                          label="Full Name"
                          icon="person"
                          placeholder="Abebe Belete Desta"
@@ -104,6 +103,7 @@ import {
                          onChangeText={handleChange('fullName')}
                          onBlur={handleBlur('fullName')}
                          value={values.fullName}
+                         autoCapitalize = {'characters'}
                          />
                         <ValidationMsg>{touched.fullName && errors.fullName}</ValidationMsg>
                         <MyTextInput
@@ -115,6 +115,7 @@ import {
                          onBlur={handleBlur('email')}
                          value={values.email}
                          keyboardType="email-address"
+                         autoCapitalize = {'characters'}
                          />
                         <ValidationMsg>{touched.email && errors.email}</ValidationMsg>
                         <MyTextInput
@@ -124,7 +125,8 @@ import {
                          placeholderTextColor={darkLight}
                          onChangeText={handleChange('phoneNumber')}
                          onBlur={handleBlur('phoneNumber')}
-                         value={values.phoneNumber}                        
+                         value={values.phoneNumber}    
+                         autoCapitalize = {'characters'}                    
                         />
                        <ValidationMsg>{touched.phoneNumber && errors.phoneNumber}</ValidationMsg>
                          <MyTextInput

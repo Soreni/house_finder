@@ -51,7 +51,6 @@ const formSchema = yup.object({
 const Login = ({ navigation }) => {
     const dispatch = useDispatch();
     const [hidePassword, setHidePassword] = useState(true);
-    const [googleSubmitting, setGoogleSubmitting] = useState(false);
     const [message, setMessage] = useState();
     const [messageType, setMessageType] = useState();
 

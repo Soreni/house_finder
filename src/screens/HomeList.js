@@ -1,51 +1,30 @@
 import React,{useState} from 'react';
-import { StatusBar } from 'expo-status-bar';
-import {View, TouchableOpacity, Alert} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {FloatingAction} from 'react-native-floating-action';
+
+import CardComponent from '../components/Card';
 
 
-import { 
-    StyledContainer,
-    InnerContainer,
-    PageLogo,
-    PageTitle,
-    SubTitle,
-    StyledFormArea, 
-    StyledTextInput,
-    StyledTextLabel,
-    LeftIcon,
-    RightIcon,
-    StyledButton,
-    ButtonText,
-    Colors,
-    MsgBox,
-    Line,
-    TextLinkContent,
-    TextLink,
-    ExtraView,
-    ExtraText,
-    ValidationMsg
 
 
- } from '../components/styles';
-
- const {darkLight, brand, primary, green} = Colors;
-
- //keyboard avoiding view 
- import  KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
-
-const Homelist = ()=>{
+const Homelist = props => {
     return (
-        <KeyboardAvoidingWrapper>
-        <StyledContainer>
-            <StatusBar style= "dark" />
-            <InnerContainer>
-            <View>
-      
-            </View>
-        </InnerContainer>
-         </StyledContainer>
-         </KeyboardAvoidingWrapper>
+       <View style={styles.container}>
+          <CardComponent
+          navigation={props.navigation}/>
+          <FloatingAction 
+                position="right"
+                animated={false}
+                showBackground={false}
+                onPressMain={() => props.navigation.navigate('AddHome')}
+            />
+        </View>
+         
     );
 }
-
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    }
+});
 export default Homelist;

@@ -16,12 +16,9 @@ import { CredentialContext } from '../components/CredentialContext';
 import TabNavigator from './HouseTab';
 //screens
 import Login from '../screens/Login';
-import Signup from '../screens/Signup';
+import Signup from '../screens/SignupCopy';
 import Main from '../screens/Main';
-import AddHome from '../screens/AddHome';
-import SearchHome from '../screens/SearchHome';
-import HomeDetails from '../screens/HomeDetails';
-import HomeList from '../screens/HomeList';
+
 
 //colors
 import {Colors} from '../components/styles';
@@ -45,7 +42,7 @@ function RootStack() {
                 padding:20
             }
         }}
-        initialRouteName='Signup'
+        initialRouteName='Login'
         >
           
           <> 

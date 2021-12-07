@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {View, Image, Text, TouchableOpacity,TextInput} from 'react-native';
+import {View, Image, Text, TouchableOpacity,TextInput,ImageBackground} from 'react-native';
 import Constants from 'expo-constants';
 
 const StatusBarHeight = Constants.statusBarHeight;
@@ -16,15 +16,16 @@ export  const Colors = {
     lightBlue: '#3c88c3',
     lightGreen: '#45b15b',
     black: '#000000',
+    gray: '#808080'
 
 };
 
-const {primary, secondary, tertiary, brand,lightBlue ,darkLight,lightGreen, black,geen,red} = Colors;
+const {primary, secondary, tertiary, brand,lightBlue ,darkLight,lightGreen, black,geen,red, gray} = Colors;
 
 export const StyledContainer = styled(View)`
     flex:1;
-    padding:25px;
-    padding-top: ${StatusBarHeight + 30}px;
+    padding:0px;
+    padding-top: ${StatusBarHeight + 1}px;
     background-color: ${primary};
 `
 export const InnerContainer = styled(View)`
@@ -59,6 +60,14 @@ export const PageLogo = styled(Image)`
     width:250px;
     height:200px;
 ` 
+export const PageBackground = styled(ImageBackground)`
+width:100%;
+height:100%;
+flexDirection:row;
+justify-content: space-between;
+alignItems: flex-end;
+
+`
 
 export const PageTitle = styled(Text)`
 
@@ -82,7 +91,7 @@ export const SubTitle = styled(Text)`
     margin-bottom: 20px;
     letter-spacing:1px;
     font-weight: bold;
-    color: ${tertiary};
+    color: ${brand};
 
     ${(props)=>props.welcome == true && `
     margin-bottom: 5px;
@@ -94,6 +103,7 @@ export const SubTitle = styled(Text)`
 export const StyledFormArea = styled(View)`
     width:90%;
 `;
+
  
 export const StyledTextInput = styled(TextInput)`
 background-color: ${secondary};
@@ -110,7 +120,7 @@ color: ${tertiary};
 
  export const StyledTextLabel = styled(Text)`
     color: ${tertiary}
-    font-size: 13px;
+    font-size: 16px;
     text-align: left;
   
  `;

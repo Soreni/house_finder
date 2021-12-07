@@ -4,7 +4,7 @@ export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
 
 
-const BASE_URL = 'https://b4fa-197-156-107-79.ngrok.io/api/housefinder';
+const BASE_URL = 'http://3982-197-156-107-61.ngrok.io/api/housefinder';
 
 export const registerUser =(userData)=>{
  const {fullName, email,phoneNumber, password} = userData;
