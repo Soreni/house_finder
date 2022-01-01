@@ -16,11 +16,12 @@ export  const Colors = {
     lightBlue: '#3c88c3',
     lightGreen: '#45b15b',
     black: '#000000',
-    gray: '#808080'
+    gray: '#808080',
+    lightPurple: '#CBC3E3'
 
 };
 
-const {primary, secondary, tertiary, brand,lightBlue ,darkLight,lightGreen, black,geen,red, gray} = Colors;
+const {primary, secondary, tertiary, brand,lightBlue ,darkLight,lightGreen, black,geen,red, gray,lightPurple} = Colors;
 
 export const StyledContainer = styled(View)`
     flex:1;
@@ -156,6 +157,17 @@ export const RightIcon = styled(TouchableOpacity)`
  justify-content:center;
  `};
  `;
+
+ export const StyledIMGButton = styled(TouchableOpacity)`
+ 
+ padding:15px;
+ background-color:${lightPurple};
+ justify-content:center;
+ align-items:center;
+ border-radius:20px;
+ margin-vertical:5px;
+ height:60px;
+`
 
  export const ButtonText = styled(Text)`
  color: ${primary};

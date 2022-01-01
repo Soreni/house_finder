@@ -16,7 +16,7 @@ import { CredentialContext } from '../components/CredentialContext';
 import TabNavigator from './HouseTab';
 //screens
 import Login from '../screens/Login';
-import Signup from '../screens/SignupCopy';
+import Signup from '../screens/Signup';
 import Main from '../screens/Main';
 
 

@@ -37,18 +37,18 @@ import {
         >
             <View style={styles.card}>
                 <View style={styles.titleContainer}>
-                    <SubTitle >Modern 3-bedroom flat</SubTitle>
+                    <SubTitle >{props.title}</SubTitle>
                 </View>
                 <View style={styles.imageContainer}>
                     <PageBackground source={require('../../assets/house.png')} style={styles.image}>
-                        <Text style={styles.price}>$200,000</Text>
+                        <Text style={styles.price}>{props.price}</Text>
                         <View style={styles.year}>
-                            <Text style={styles.yearText}>2020</Text>
+                            <StyledTextLabel style={styles.yearText}>{props.localAreaName}</StyledTextLabel>
                         </View>
                     </PageBackground>
                 </View>
                 <View style={styles.description}>
-                    <StyledTextLabel>This is the description</StyledTextLabel>
+                    <StyledTextLabel>{props.description}</StyledTextLabel>
                 </View>
             </View>
         </TouchableOpacity>

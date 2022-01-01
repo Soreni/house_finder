@@ -4,7 +4,7 @@ export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
 
 
-const BASE_URL = 'http://3982-197-156-107-61.ngrok.io/api/housefinder';
+const BASE_URL = 'http://4099-197-156-95-48.ngrok.io/api/housefinder';
 
 export const registerUser =(userData)=>{
  const {fullName, email,phoneNumber, password} = userData;
@@ -23,7 +23,7 @@ export const registerUser =(userData)=>{
        password})
     })
    const data = await result.json();
-  
+    console.log(data);
    if(data.success){
     dispatch({
         type: 'REGISTER_USER_SUCCESS',
