@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import {View, TouchableOpacity, Alert} from 'react-native';
+import {View, TouchableOpacity, Alert, CheckBox} from 'react-native';
 import { useDispatch } from 'react-redux';
 
 //formik
@@ -49,6 +49,7 @@ import {
     email: yup.string().email().required(),
     phoneNumber: yup.string().required(),
     password: yup.string().required().min(6),
+
 })
 
  const Signup = ({navigation})=>{
@@ -72,17 +73,23 @@ import {
                          email: '',
                          phoneNumber: '',
                          password: '', 
+                      
                          }}
                     validationSchema={formSchema}
                     onSubmit={(values)=>
                     {
                         dispatch(userAction.registerUser(values))
-                        .then( result=>{
+                        .then( async result=>{
                             console.log(result);
                             if( result.success) {
-                           
-                                  
-                                    navigation.navigate("Main");
+                                                           
+                                try{
+                                    await AsyncStorage.setItem('token',result.token)
+                                    navigation.navigate("MainTab");
+                                 
+                                }
+                                catch(err)
+                                {console.log(err)}
   
                             }
                             else{

@@ -48,7 +48,9 @@ export default function UploadImage() {
     console.log(JSON.stringify(_image));
 
     if (!_image.cancelled) {
+      console.log(_image.uri)
       setImage(_image.uri);
+      
     }
   }
  

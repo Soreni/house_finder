@@ -50,7 +50,7 @@ function RootStack() {
           
           <Stack.Screen name="Signup" component={Signup} />
           <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Main" component={Main}/>
+       
           </>
          
         

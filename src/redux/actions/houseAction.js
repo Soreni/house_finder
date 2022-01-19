@@ -5,7 +5,7 @@ export const CREATE_HOUSES_FAIL = 'CREATE_HOUSES_FAIL';
 
 
 
-const BASE_URL = 'http://4099-197-156-95-48.ngrok.io/api/housefinder';
+const BASE_URL = 'http://290f-197-156-86-147.ngrok.io/api/housefinder';
 
 export const fecthHouses =()=>{
 
@@ -36,21 +36,47 @@ export const fecthHouses =()=>{
     }
 }
 export const createHouses =(houseData)=>{
+    const { houseType, unitstructure, price,  image,  houseNumber,
+        isFurnished,  localAreaName, description,   postedBy} = houseData;
+                
     return async dispatch =>{
+    //MAKE GET Request
+    const result = await fetch(`${BASE_URL}/houses/register`,{ method: 'POST',
+    headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json'
+    },
+    body:JSON.stringify({
+        houseType,
+        unitstructure,
+        price,
+        image,
+        houseNumber,
+        isFurnished,
+        localAreaName,
+        description,
+        postedBy,
+        
+     
+    })
+    })
+   
         const data = await result.json();
-  
-        if(data.success){
+        console.log('inside dispach');
+        console.log(data)
+    //    if(data.success){
         dispatch({
             type: 'CREATE_HOUSES_SUCCESS',
-            payload: data
-        })
-    } else {
+            payload: data,
+         
+         })
+  /*  } else {
         dispatch({
             type: 'CREATE_HOUSES_FAIL',
             payload: data
         })
-    }
-       return date;
+    }*/
+       return data;
     }
 }
 
