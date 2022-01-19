@@ -9,6 +9,7 @@ import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons';
 import * as yup from 'yup';
 import AsyncStorage  from '@react-native-async-storage/async-storage';
 import { MaterialIcons } from '@expo/vector-icons';
+import * as Location from 'expo-location';
 const jwtDecode = require('jwt-decode');
 
 
@@ -63,6 +64,8 @@ const AddHome = ()=>{
 
   const dispatch = useDispatch();
   const [postedBy, setPostedBy] = useState();
+  const [gpsLocation, setGpsLocation] = useState();
+  const [errorMsg, setErrorMsg] = useState(null);
   const [token, setToken] = useState();
 
   const loadProfile = async ()=>{
@@ -70,26 +73,36 @@ const AddHome = ()=>{
     setToken(token);
     const decode = jwtDecode(token);
     setPostedBy(decode._id);
-    console.log(postedBy);
     return decode;
 
  }
+ const checkLocationPermission =  async () => {
+  let { status } = await Location.requestForegroundPermissionsAsync();
+  if (status !== 'granted') {
+    setErrorMsg('Permission to access location was denied');
+    return;
+  }
+
+
+  let location = await Location.getCurrentPositionAsync({});
+  setGpsLocation(location);
+};
+
  useEffect(()=>{
      loadProfile();
+     checkLocationPermission();
 
  })
 
+ let text = 'Waiting..';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (gpsLocation) {
+    text = JSON.stringify(gpsLocation);
 
+  }
 
-    let _houseType = [{
-        value: 'Flat',
-      }, {
-        value: 'Condominium',
-      }, {
-        value: 'Compund',
-      }, {
-        value: 'Apartment',
-      }];
+  
     return (
         <KeyboardAvoidingWrapper>
             <StyledContainer>
@@ -107,13 +120,17 @@ const AddHome = ()=>{
                   localAreaName: '',
                   description: '',
                   postedBy: '',
-                  GPSLocation: '',
+                  GPSLocation: {},
                  }}
                  validationSchema= {formSchema}
                          
                  onSubmit={(values)=>{
                           values.postedBy = postedBy;
-
+                          values.GPSLocation ={
+                              altitude:gpsLocation.coords.altitude,
+                              longitude:gpsLocation.coords.longitude,
+                              latitude:gpsLocation.coords.latitude
+                          }
                           console.log(`before dispatch${values}`)
                           console.log(values);
                        dispatch(houseAction.createHouses(values))
@@ -196,7 +213,11 @@ const AddHome = ()=>{
                   onBlur={props.handleBlur('localAreaName')}
                   value={props.values.localAreaName}/>
                   <ValidationMsg>{props.touched.localAreaName && props.errors.localAreaName}</ValidationMsg>
-             
+                 <MyTextInput
+  
+                 label = {text}
+                 placeholder = {text}/>
+
                  <MyTextInput
                   
                   icon= "description"

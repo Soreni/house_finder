@@ -37,7 +37,7 @@ export const fecthHouses =()=>{
 }
 export const createHouses =(houseData)=>{
     const { houseType, unitstructure, price,  image,  houseNumber,
-        isFurnished,  localAreaName, description,   postedBy} = houseData;
+        isFurnished,  localAreaName,GPSLocation, description,   postedBy} = houseData;
                 
     return async dispatch =>{
     //MAKE GET Request
@@ -54,6 +54,7 @@ export const createHouses =(houseData)=>{
         houseNumber,
         isFurnished,
         localAreaName,
+        GPSLocation,
         description,
         postedBy,
         
