@@ -1,6 +1,5 @@
-import { CardAnimationContext } from '@react-navigation/stack';
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 
 import {
   StyledContainer,
@@ -27,20 +26,22 @@ import {
 } from './styles';
 
 const CardComponent = (props) => {
-  conosle.log('card component');
+  console.log('card component');
   return (
     <TouchableOpacity onPress={() => props.navigation.navigate('HomeDetails')}>
       <View style={styles.card}>
         <View style={styles.titleContainer}>
-          <SubTitle>{props.title}</SubTitle>
+          <SubTitle>
+            {props.title} {props.houseType}
+          </SubTitle>
         </View>
         <View style={styles.imageContainer}>
-          <PageBackground source={require('../../assets/house.png')} style={styles.image}>
+          <ImageBackground style={styles.image} source={require('../../assets/house.png')}>
             <Text style={styles.price}>{props.price}</Text>
             <View style={styles.year}>
               <StyledTextLabel style={styles.yearText}>{props.localAreaName}</StyledTextLabel>
             </View>
-          </PageBackground>
+          </ImageBackground>
         </View>
         <View style={styles.description}>
           <StyledTextLabel>{props.description}</StyledTextLabel>
@@ -100,5 +101,4 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
-
 export default CardComponent;

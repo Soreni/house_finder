@@ -54,7 +54,7 @@ export default function UploadImage() {
     }
   }
  
-  const  checkForCameraRollPermission=async()=>{
+  const  checkForCameraRollPermission= async()=>{
     const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
     //  alert("Please grant camera roll permissions inside your system's settings");

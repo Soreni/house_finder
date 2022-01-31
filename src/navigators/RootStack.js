@@ -17,7 +17,7 @@ import TabNavigator from './HouseTab';
 //screens
 import Login from '../screens/Login';
 import Signup from '../screens/Signup';
-import Main from '../screens/Main';
+
 
 
 //colors
