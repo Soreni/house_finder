@@ -27,8 +27,9 @@ import {
 
 const CardComponent = (props) => {
   console.log('card component');
+  console.log(props.houseId);
   return (
-    <TouchableOpacity onPress={() => props.navigation.navigate('HomeDetails')}>
+    <TouchableOpacity onPress={() => props.navigation.navigate('HomeDetails', { houseId: props.houseId })}>
       <View style={styles.card}>
         <View style={styles.titleContainer}>
           <SubTitle>

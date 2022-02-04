@@ -1,3 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const jwtDecode = require('jwt-decode');
+
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
 export const REGISTER_USER_FAIL = 'REGISTER_USER_FAIL';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
@@ -7,7 +10,9 @@ export const FETCH_USER_FAIL = 'FETCH_USER_FAIL';
 export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER_FAIL = 'EDIT_USER_FAIL';
 
-const BASE_URL = 'http://e412-197-156-86-67.ngrok.io/api/housefinder';
+import BASE_URL from '../../../../../../../ACT/HouseFinder/House-Finder-Frontend/house_finder/src/shared/baseUrl';
+
+//const BASE_URL = 'http://1428-196-189-148-225.ngrok.io/api/housefinder';
 
 export const registerUser = (userData) => {
   const { fullName, email, phoneNumber, password } = userData;
@@ -78,7 +83,7 @@ export const loginUser = (userData) => {
 export const fecthUser = () => {
   return async (dispatch) => {
     //MAKE GET Request
-    const result = await fetch(`${BASE_URL}/users/:id`, {
+    const result = await fetch(`${BASE_URL}/users/${id}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -99,7 +104,6 @@ export const fecthUser = () => {
       });
     }
     return data;
-    console.log(`check data ${data}`);
   };
 };
 

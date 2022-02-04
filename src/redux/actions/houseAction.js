@@ -3,7 +3,7 @@ export const FETCH_HOUSES_FAIL = 'FETCH_HOUSES_FAIL';
 export const CREATE_HOUSES_SUCCESS = 'CREATE_HOUSES_SUCCESS';
 export const CREATE_HOUSES_FAIL = 'CREATE_HOUSES_FAIL';
 
-const BASE_URL = 'http://e412-197-156-86-67.ngrok.io/api/housefinder';
+import BASE_URL from '../../../../../../../ACT/HouseFinder/House-Finder-Frontend/house_finder/src/shared/baseUrl';
 
 export const fecthHouses = () => {
   return async (dispatch) => {

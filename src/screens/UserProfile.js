@@ -34,7 +34,7 @@ import {
   StyledProButton,
 } from '../components/styles';
 
-const Profile = (props) => {
+const UserProfile = (props) => {
   const [postedBy, setPostedBy] = useState();
 
   useEffect(() => {
@@ -139,4 +139,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default UserProfile;

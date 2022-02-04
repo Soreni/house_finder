@@ -1,15 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-
-
-
-
-
-
-//credentials 
+//credentials
 import { CredentialContext } from '../components/CredentialContext';
 
 //import custom tabs
@@ -18,45 +12,41 @@ import TabNavigator from './HouseTab';
 import Login from '../screens/Login';
 import Signup from '../screens/Signup';
 
-
-
 //colors
-import {Colors} from '../components/styles';
-const {primary, tertiary} = Colors;
+import { Colors } from '../components/styles';
+const { primary, tertiary } = Colors;
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
 function RootStack() {
-  return (   
-        <NavigationContainer>
-        <Stack.Navigator 
-        screenOptions= {{
-            headerStyle:{
-               backgroundColor:'transparent'
-            },
-            headerTintColor: tertiary,
-            headerTransparent: true,
-            headerTitle: '',
-            headerLeftContainerStyle: {
-                padding:20
-            }
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: 'transparent',
+          },
+          headerTintColor: tertiary,
+          headerTransparent: true,
+          headerTitle: '',
+          headerLeftContainerStyle: {
+            padding: 20,
+          },
         }}
-        initialRouteName='Login'
-        >
-          
-          <> 
-          <Stack.Screen options={{ headerTintColor: primary,headerLeft: null }} name="MainTab" component={TabNavigator} /> 
-          
+        initialRouteName="Login"
+      >
+        <>
+          <Stack.Screen
+            options={{ headerTintColor: primary, headerLeft: null }}
+            name="MainTab"
+            component={TabNavigator}
+          />
+
           <Stack.Screen name="Signup" component={Signup} />
           <Stack.Screen name="Login" component={Login} />
-       
-          </>
-         
-        
-              
-        </Stack.Navigator>
-        </NavigationContainer>    
+        </>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

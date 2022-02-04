@@ -9,38 +9,38 @@ import AddHome from '../screens/AddHome';
 import SearchHome from '../screens/SearchHome';
 import HomeDetails from '../screens/HomeDetails';
 import HomeList from '../screens/HomeList';
-import Profile from '../screens/Profile';
+import UserProfile from '../screens/UserProfile';
 import Feedback from '../screens/Feedback';
 
 //colors
 import { Colors } from '../components/styles';
-const { primary, tertiary } = Colors;
+const { primary, tertiary, brand } = Colors;
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function stackNavigator() {
+function HouseNavigator() {
   return (
-    <Stack.Navigator initialRouteName="HomeList">
+    <Stack.Navigator screenOptions={{ presentation: 'modal', animation: 'slide_from_bottom' }}>
       <Stack.Screen name="HomeList" component={HomeList} />
-      <Stack.Screen name="HomeDetails" component={HomeDetails} />
+      <Stack.Screen name="HomeDetails" component={HomeDetails} options={{ headerShown: false }} />
       <Stack.Screen name="AddHome" component={AddHome} />
     </Stack.Navigator>
   );
 }
 
-function stackSearchNavigator() {
+function SearchNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Search" component={SearchHome} />
+      <Stack.Screen name="SearchHome" component={SearchHome} />
     </Stack.Navigator>
   );
 }
 
-function profileStackNavigator() {
+function ProfileNavigator() {
   return (
-    <Stack.Navigator initialRouteName="Profile">
-      <Stack.Screen name="Profile" component={Profile} />
+    <Stack.Navigator>
+      <Stack.Screen name="UserProfile" component={UserProfile} />
       <Stack.Screen name="Feedback" component={Feedback} />
     </Stack.Navigator>
   );
@@ -60,13 +60,13 @@ function TabNavigator() {
             iconName = 'account-circle';
           }
 
-          return <MaterialIcons name={iconName} size={24} color={tertiary} />;
+          return <MaterialIcons name={iconName} size={25} color={tertiary} />;
         },
       })}
     >
-      <Tab.Screen name="Home" component={stackNavigator} />
-      <Tab.Screen name="Search" component={stackSearchNavigator} />
-      <Tab.Screen name="Profile" component={profileStackNavigator} />
+      <Tab.Screen name="Home" component={HouseNavigator} />
+      <Tab.Screen name="Search" component={SearchNavigator} />
+      <Tab.Screen name="Profile" component={ProfileNavigator} />
     </Tab.Navigator>
   );
 }

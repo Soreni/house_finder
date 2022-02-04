@@ -3,7 +3,7 @@ export const FETCH_FEEDBACKS_FAIL = 'FETCH_FEEDBACKS_FAIL';
 export const CREATE_FEEDBACKS_SUCCESS = 'CREATE_FEEDBACKS_SUCCESS';
 export const CREATE_FEEDBACKS_FAIL = 'CREATE_FEEDBACKS_FAIL';
 
-const BASE_URL = 'http://e412-197-156-86-67.ngrok.io/api/housefinder';
+import BASE_URL from '../../../../../../../ACT/HouseFinder/House-Finder-Frontend/house_finder/src/shared/baseUrl';
 
 export const fecthFeedback = () => {
   return async (dispatch) => {
@@ -28,7 +28,6 @@ export const fecthFeedback = () => {
       });
     }
     return data;
-    console.log(`check data ${data}`);
   };
 };
 export const createFeedbacks = (feedbackData) => {

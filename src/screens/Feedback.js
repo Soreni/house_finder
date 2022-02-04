@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { View, StyleSheet, Alert, Image } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -37,7 +37,7 @@ const formSchema = yup.object({
   message: yup.string().required(),
 });
 
-const Feedback = ({ navigation }) => {
+const Feedback = (props) => {
   const dispatch = useDispatch();
   const [postedBy, setPostedBy] = useState();
 
@@ -65,13 +65,26 @@ const Feedback = ({ navigation }) => {
               values.postedBy = postedBy;
               console.log(values);
               dispatch(feedbackAction.createFeedbacks(values))
-                .then(() => {
-                  Alert.alert('Feedback Registered Successfully');
-                  navigation.navigate('Profile');
+                .then((result) => {
+                  console.log(result);
+                  Toast.show({
+                    topOffset: 60,
+                    type: 'success',
+                    text1: 'Registration Succeeded',
+                    text2: '',
+                  });
+                  setTimeout(() => {
+                    props.navigation.navigate('UserProfile');
+                  }, 500);
                 })
-                .catch((err) => {
-                  console.log(err);
-                  Alert.alert('An Error has Occured');
+                .catch((error) => {
+                  console.log(error);
+                  Toast.show({
+                    topOffset: 60,
+                    type: 'error',
+                    text1: 'Something went wrong',
+                    text2: 'Please try again',
+                  });
                 });
             }}
           >

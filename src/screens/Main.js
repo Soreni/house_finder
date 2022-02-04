@@ -1,100 +1,48 @@
-import React,{useState, useEffect} from 'react';
-import { StatusBar } from 'expo-status-bar';
-import {View} from 'react-native';
-import {Formik} from 'formik';
-import {Octicons, Ionicons, Fontisto} from '@expo/vector-icons';
-import AsyncStorage  from '@react-native-async-storage/async-storage';
-const jwtDecode = require('jwt-decode');
+import React from 'react';
+import { ImageBackground, StyleSheet, View, Image, Text } from 'react-native';
 
+import { StyledButton, Colors } from '../components/styles';
+const { darkLight, brand, primary, green, secondary } = Colors;
 
-import { 
-    StyledContainer,
-    InnerContainer,
-    PageLogo,
-    PageTitle,
-    SubTitle,
-    StyledFormArea, 
-    StyledTextInput,
-    StyledTextLabel,
-    LeftIcon,
-    RightIcon,
-    StyledButton,
-    ButtonText,
-    Colors,
-    MsgBox,
-    Line,
-    TextLinkContent,
-    TextLink,
-    ExtraView,
-    ExtraText,
-    WelcomeContainer,
-    WelcomeImage,
-    Avatar
+function WelcomeScreen({ navigation }) {
+  return (
+    <ImageBackground blurRadius={10} style={styles.background} source={require('../../assets/background.png')}>
+      <View style={styles.logoContainer}>
+        <Image style={styles.logo} source={require('../assets/logo.png')} />
+        <Text style={styles.tagline}>Sell What You Don't Need</Text>
+      </View>
+      <View style={styles.buttonsContainer}>
+        <StyledButton title="Login" onPress={() => navigation.navigate('Login')} />
+        <StyledButton title="Register" color={secondary} onPress={() => navigation.navigate('Signup')} />
+      </View>
+    </ImageBackground>
+  );
+}
 
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  buttonsContainer: {
+    padding: 20,
+    width: '100%',
+  },
+  logo: {
+    width: 100,
+    height: 100,
+  },
+  logoContainer: {
+    position: 'absolute',
+    top: 70,
+    alignItems: 'center',
+  },
+  tagline: {
+    fontSize: 25,
+    fontWeight: '600',
+    paddingVertical: 20,
+  },
+});
 
- } from '../components/styles';
-
-
- const Main = ({navigation})=>{
-
-
- const loadProfile = async ()=>{
-    const token =  await AsyncStorage.getItem('token');
-    const decode = jwtDecode(token);
-    console.log(decode);
-
- }
- useEffect(()=>{
-     loadProfile();
- })
-
-   //  const {email, name, photoUrl} = route.params;
-     const AvatarImg = require('../../assets/logo.png');
-     
-     return(
-         <>
-             <StatusBar style= "dark" />
-             <InnerContainer>
-       
-             <WelcomeImage resizeMode='cover' source= {require('../../assets/flo.png')}/>
-
-                 <WelcomeContainer>
-                    <PageTitle welcome={true}>Welcome to House Finder</PageTitle>
-                    
-                                 
-                    <StyledFormArea>
-                         <Avatar resizeMode='cover' source= {AvatarImg}/>
-                         <Line />
-                         <StyledButton onPress={()=>{ navigation.navigate("Login");}}>
-                             <ButtonText>Logout</ButtonText>
-                         </StyledButton>
-                         </ StyledFormArea>             
-                 </WelcomeContainer>
-             </InnerContainer>
-         </>
-     );
- }
-
-
- const MyTextInput = ({label, icon, isPassword ,hidePassword , setHidePassword,  ...probs})=>{
-     return(
-         <View>
-             <LeftIcon>
-                 <Octicons name={icon} size={30} color={brand} />
-             </LeftIcon>
-             <StyledTextLabel>{label}</StyledTextLabel>
-             <StyledTextInput {...probs} />
-       
-             {isPassword && (
-                 
-                 <RightIcon onPress={()=>setHidePassword(!hidePassword)}>
-                     <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={30} color={darkLight}/>
-                 </RightIcon>
-             )}
-
-         </View>
-
-
-     );
- };
- export default Main;
+export default WelcomeScreen;

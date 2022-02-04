@@ -2,33 +2,35 @@ import React from 'react';
 import { StyleSheet, ScrollView, View, Text, Image } from 'react-native';
 import { useSelector } from 'react-redux';
 
-const HomeDetails = (props) => {
-  const { houseId } = props.route.params;
-  //const house = useSelector((state) => state.house.find((house) => house._id == houseId));
+const HomeDetails = ({ route }) => {
+  const { houseId } = route.params.houseId;
 
-  console.log(`detail house : ${house}`);
+  // const house = useSelector((state) => state.house.find((house) => house._id == houseId));
+
+  console.log('detail house');
+  console.log(houseId);
   return (
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.heading}>
-          <Text style={styles.title}>{house.unitstructure}</Text>
+          <Text style={styles.title}>unitstructure</Text>
         </View>
         <View>
           <Image source={require('../../assets/house.png')} style={styles.image} />
         </View>
         <View style={styles.group}>
           <Text style={styles.label}>Home Type: </Text>
-          <Text style={styles.value}>{house.houseType}</Text>
+          {/* <Text style={styles.value}>{house.houseType}</Text> */}
         </View>
         <View style={styles.group}>
           <Text style={styles.label}>Price: </Text>
           <Text style={styles.value}>$200,000</Text>
-          <Text style={styles.value}>{house.price}</Text>
+          {/* <Text style={styles.value}>{house.price}</Text> */}
         </View>
         <View style={styles.group}>
           <Text style={styles.label}>Year Built: </Text>
           <Text style={styles.value}>2020</Text>
-          <Text style={styles.value}>{house.localAreaName}</Text>
+          {/* <Text style={styles.value}>{house.localAreaName}</Text> */}
         </View>
         <View style={styles.group}>
           <Text style={styles.label}>Address: </Text>
@@ -36,11 +38,11 @@ const HomeDetails = (props) => {
         </View>
         <View style={styles.group}>
           <Text style={styles.label}>Contact Person: </Text>
-          <Text style={styles.value}>{house.postedBy.phoneNumber}</Text>
+          {/* <Text style={styles.value}>{house.postedBy.phoneNumber}</Text> */}
         </View>
         <View style={styles.group}>
           <Text style={styles.label}>Description: </Text>
-          <Text style={styles.value}>{house.description}</Text>
+          {/* <Text style={styles.value}>{house.description}</Text> */}
         </View>
       </View>
     </ScrollView>

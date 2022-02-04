@@ -5,11 +5,29 @@ import { FloatingAction } from 'react-native-floating-action';
 
 import CardComponent from '../components/Card__';
 import * as houseAction from '../redux/actions/houseAction';
+import {
+  StyledContainer,
+  InnerContainer,
+  PageLogo,
+  PageTitle,
+  SubTitle,
+  StyledFormArea,
+  StyledTextInput,
+  StyledTextLabel,
+  LeftIcon,
+  RightIcon,
+  StyledButton,
+  ButtonText,
+  Colors,
+  ExtraText,
+  ValidationMsg,
+} from '../components/styles';
 
 const Homelist = (props) => {
   const dispatch = useDispatch();
   const isMounted = useRef(null);
   const [house, setHouse] = useState([]);
+  const [error, setError] = useState(false);
 
   //const { houses } = useSelector((state) => state.house);
 
@@ -18,6 +36,9 @@ const Homelist = (props) => {
     if (isMounted.current) {
       dispatch(houseAction.fecthHouses())
         .then((data) => {
+          if (!data.success) setError(true);
+
+          setError(false);
           setHouse([...data.house]);
         })
         .catch((err) => {
@@ -27,6 +48,7 @@ const Homelist = (props) => {
 
     return () => (isMounted.current = false);
   }, [dispatch, isMounted.current]);
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -42,6 +64,7 @@ const Homelist = (props) => {
             address={item.address}
             description={item.description}
             localAreaName={item.localAreaName}
+            houseId={item._id}
           />
         )}
       />
@@ -55,19 +78,7 @@ const Homelist = (props) => {
     </View>
   );
 };
-// const Homelist = (props) => {
-//   return (
-//     <View style={styles.container}>
-//       <CardComponent navigation={props.navigation} />
-//       <FloatingAction
-//         position="right"
-//         animated={false}
-//         showBackground={false}
-//         onPressMain={() => props.navigation.navigate('AddHome')}
-//       />
-//     </View>
-//   );
-// };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

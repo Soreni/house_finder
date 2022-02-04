@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
-import { ActivityIndicator, View, CheckBox, Switch, Text, Alert } from 'react-native';
+import { Image, View, Button, Switch, Text, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { Slider } from 'react-native-elements';
+import Toast from 'react-native-toast-message';
 import { Formik } from 'formik';
-import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons';
 import * as yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialIcons } from '@expo/vector-icons';
-import * as Location from 'expo-location';
 const jwtDecode = require('jwt-decode');
 
 import {
@@ -26,11 +24,6 @@ import {
   StyledButton,
   ButtonText,
   Colors,
-  MsgBox,
-  Line,
-  TextLinkContent,
-  TextLink,
-  ExtraView,
   ExtraText,
   ValidationMsg,
 } from '../components/styles';
@@ -39,7 +32,8 @@ const { darkLight, brand, primary, green } = Colors;
 
 //keyboard avoiding view
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
-import UploadImage from '../components/UploadImage';
+import useLocation from '../hooks/useLocation';
+import ImageInputList from '../components/ImageInputList';
 
 //import house action
 import * as houseAction from '../redux/actions/houseAction';
@@ -49,21 +43,22 @@ const formSchema = yup.object({
   unitStructure: yup.string().required(),
   price: yup.number().required(),
   houseNumber: yup.string().required(),
+  //images: yup.array().min(1, 'Please select at least one image'),
   isFurnished: yup.boolean(),
   localAreaName: yup.string().min(3).max(50).required(),
   description: yup.string().required().min(10).max(100),
 });
 const AddHome = (props) => {
   const dispatch = useDispatch();
+  const gpsLocation = useLocation();
   const [postedBy, setPostedBy] = useState();
-  const [gpsLocation, setGpsLocation] = useState();
+  const [imageUris, setImageUris] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
   const [token, setToken] = useState();
 
   useEffect(() => {
     loadProfile();
-    checkLocationPermission();
-  });
+  }, []);
 
   const loadProfile = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -72,23 +67,21 @@ const AddHome = (props) => {
     setPostedBy(decode._id);
     return decode;
   };
-  const checkLocationPermission = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      setErrorMsg('Permission to access location was denied');
-      return;
-    }
-
-    let location = await Location.getCurrentPositionAsync({});
-    setGpsLocation(location);
-  };
 
   let text = 'Waiting..';
   if (errorMsg) {
     text = errorMsg;
   } else if (gpsLocation) {
-    text = JSON.stringify(gpsLocation);
+    text = JSON.stringify(gpsLocation.longitude);
   }
+
+  const handleAdd = (uri) => {
+    setImageUris([...imageUris, uri]);
+    console.log(uri);
+  };
+  const handleRemove = (uri) => {
+    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
+  };
 
   return (
     <KeyboardAvoidingWrapper>
@@ -100,7 +93,7 @@ const AddHome = (props) => {
               houseType: '',
               unitStructure: '',
               price: '',
-              image: '',
+              images: [],
               houseNumber: '',
               isFurnished: false,
               localAreaName: '',
@@ -112,26 +105,42 @@ const AddHome = (props) => {
             onSubmit={(values) => {
               console.log(values);
               values.postedBy = postedBy;
+              values.images = imageUris;
               values.GPSLocation = {
-                altitude: gpsLocation.coords.altitude,
-                longitude: gpsLocation.coords.longitude,
-                latitude: gpsLocation.coords.latitude,
+                altitude: gpsLocation.altitude,
+                longitude: gpsLocation.longitude,
+                latitude: gpsLocation.latitude,
               };
-              console.log(`before dispatch${values}`);
-              console.log(values);
               dispatch(houseAction.createHouses(values))
                 .then((result) => {
                   console.log(result);
-                  Alert.alert('House Registered Successfully');
-                  props.navigation.navigate('HomeList');
+                  Toast.show({
+                    topOffset: 60,
+                    type: 'success',
+                    text1: 'Registration Succeeded',
+                    text2: 'Redirect to House List',
+                  });
+                  setTimeout(() => {
+                    props.navigation.navigate('HomeList');
+                  }, 500);
                 })
                 .catch(() => {
-                  Alert.alert('An Error has Occured', error.message);
+                  Toast.show({
+                    topOffset: 60,
+                    type: 'error',
+                    text1: 'Something went wrong',
+                    text2: 'Please try again',
+                  });
                 });
             }}
           >
             {(props) => (
               <StyledFormArea>
+                <ImageInputList
+                  imageUris={imageUris}
+                  onDeleteImage={(uri) => handleRemove(uri)}
+                  onAddImage={(uri) => handleAdd(uri)}
+                />
                 <View style={{ marginTop: 10, marginBottom: 20 }}>
                   <Picker
                     enabled={true}
@@ -174,11 +183,7 @@ const AddHome = (props) => {
                   value={props.values.price}
                 />
                 <ValidationMsg>{props.touched.price && props.errors.price}</ValidationMsg>
-                <UploadImage
-                  onChangeText={props.handleChange('image')}
-                  onBlur={props.handleBlur('image')}
-                  value={props.values.image}
-                />
+
                 <MyTextInput
                   icon="house"
                   placeholder="House Number"

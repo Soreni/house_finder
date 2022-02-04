@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { View, Image, Text, TouchableOpacity, TextInput, ImageBackground } from 'react-native';
+import { View, Image, Text, TouchableOpacity, TextInput, ImageBackground, Platform } from 'react-native';
 import Constants from 'expo-constants';
 
 const StatusBarHeight = Constants.statusBarHeight;
@@ -7,21 +7,40 @@ const StatusBarHeight = Constants.statusBarHeight;
 //colors for
 export const Colors = {
   primary: '#ffffff',
-  secondary: '#E5E7EB',
+  secondary: '#e5e7eb',
   tertiary: '#1F2937',
   darkLight: '#9CA3AF',
   brand: '#4e62b1',
   geen: '#10B981',
   red: '#EF4444',
-  lightBlue: '#3c88c3',
+  mintBlue: '#88B2CC',
   lightGreen: '#45b15b',
   black: '#000000',
   gray: '#808080',
+  lightGray: '#D3D3D3',
   lightPurple: '#CBC3E3',
+  light: '#f8f4f4',
+  lightb: '#fc5c35',
+  blueGrey: '#658EA9',
+  mintBlue: '#88B2CC',
 };
 
-const { primary, secondary, tertiary, brand, lightBlue, darkLight, lightGreen, black, geen, red, gray, lightPurple } =
-  Colors;
+const {
+  primary,
+  secondary,
+  tertiary,
+  brand,
+  mintBlue,
+  darkLight,
+  lightGray,
+  lightGreen,
+  blueGrey,
+  geen,
+  red,
+  lightb,
+  lightPurple,
+  light,
+} = Colors;
 
 export const StyledContainer = styled(View)`
   flex: 1;
@@ -32,6 +51,8 @@ export const StyledContainer = styled(View)`
 export const InnerContainer = styled(View)`
   flex: 1;
   width: 100%;
+  margin-top: 1px;
+  margin-bottom: 400px;
   align-items: center;
 `;
 
@@ -57,8 +78,8 @@ export const WelcomeImage = styled(Image)`
   height: 50%;
 `;
 export const PageLogo = styled(Image)`
-  width: 250px;
-  height: 200px;
+  width: 100px;
+  height: 80px;
 `;
 export const PageBackground = styled(ImageBackground)`
   width: 100%;
@@ -72,8 +93,9 @@ export const PageTitle = styled(Text)`
   font-size: 30px;
   text-align: center;
   font-weight: bold;
-  color: ${brand};
-  padding: 10px;
+  color: ${blueGrey};
+  padding: 0px;
+  margin-bottom: 50px;
 
   ${(props) =>
     props.welcome == true &&
@@ -100,6 +122,7 @@ export const SubTitle = styled(Text)`
 `;
 
 export const StyledFormArea = styled(View)`
+  margin-top: 1px;
   width: 90%;
 `;
 
@@ -108,18 +131,19 @@ export const StyledTextInput = styled(TextInput)`
   padding: 15px;
   padding-left: 55px;
   padding-right: 55px;
-  border-radius: 5px;
+  border-radius: 25px;
   font-size: 16px;
   height: 60px;
-  margin-vertical: 3px;
-  margin-bottom: 10px;
+  margin-vertical: 5px;
+  margin-bottom: 5px;
+  flex-direction: row;
   color: ${tertiary};
 `;
 
 export const StyledTextLabel = styled(Text)`
     color: ${tertiary}
     font-size: 16px;
-    text-align: left;
+    text-align: left; 
   
  `;
 
@@ -139,13 +163,13 @@ export const RightIcon = styled(TouchableOpacity)`
 
 export const StyledButton = styled(TouchableOpacity)`
   padding: 15px;
-  background-color: ${lightBlue};
+  background-color: ${blueGrey};
   justify-content: center;
   align-items: center;
-  border-radius: 50px;
-  margin-vertical: 5px;
+  border-radius: 25px;
+  margin-vertical: 10px;
   height: 60px;
-
+  width: 100%;
   ${(props) =>
     props.google == true &&
     `
