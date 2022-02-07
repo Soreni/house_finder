@@ -12,8 +12,6 @@ export const EDIT_USER_FAIL = 'EDIT_USER_FAIL';
 
 import BASE_URL from '../../../../../../../ACT/HouseFinder/House-Finder-Frontend/house_finder/src/shared/baseUrl';
 
-
-
 export const registerUser = (userData) => {
   const { fullName, email, phoneNumber, password } = userData;
 
@@ -91,7 +89,6 @@ export const fecthUser = () => {
       },
     });
     const data = await result.json();
-    console.log(data);
     if (data.success) {
       dispatch({
         type: 'FETCH_USER_SUCCESS',

@@ -23,7 +23,7 @@ const useLocation = () => {
   useEffect(() => {
     checkLocationPermission();
   }, []);
-  console.log({ gpsLocation });
+
   return gpsLocation;
 };
 

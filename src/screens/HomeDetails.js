@@ -1,9 +1,25 @@
 import React, { useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Image } from 'react-native';
 import { useSelector } from 'react-redux';
-import Base64ArrayBuffer from 'base64-arraybuffer';
+import { useNavigation } from '@react-navigation/native';
+
+import {
+  StyledContainer,
+  InnerContainer,
+  PageLogo,
+  PageTitle,
+  SubTitle,
+  StyledFormArea,
+  StyledTextInput,
+  StyledTextLabel,
+  LeftIcon,
+  RightIcon,
+  StyledButton,
+  ButtonText,
+} from '../components/styles';
 
 const HomeDetails = ({ route }) => {
+  const navigation = useNavigation();
   const { houseId } = route.params;
   let base64String = '';
   const house = useSelector((state) => state.house.house.house.filter((house) => house._id === houseId));
@@ -11,7 +27,6 @@ const HomeDetails = ({ route }) => {
 
   // {const check = house.house.house.filter((house) => house._id === houseId);
   //const { houses } = useSelector((state) => state);
-  let imageUri = {};
 
   // if (house) {
   //   const check = house.house.house.filter((house) => house._id === houseId);
@@ -67,6 +82,11 @@ const HomeDetails = ({ route }) => {
           <Text style={styles.label}>Description: </Text>
           <Text style={styles.value}>{house[0].description}</Text>
         </View>
+        <StyledButton>
+          <ButtonText onPress={() => navigation.navigate('HouseLocation', { gpsLocation: house[0].GPSLocation })}>
+            View House Location on the Map
+          </ButtonText>
+        </StyledButton>
       </View>
     </ScrollView>
   );

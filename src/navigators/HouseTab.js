@@ -9,6 +9,7 @@ import AddHome from '../screens/AddHome';
 import SearchHome from '../screens/SearchHome';
 import HomeDetails from '../screens/HomeDetails';
 import HomeList from '../screens/HomeList';
+import HouseLocation from '../screens/HouseLocation';
 import UserProfile from '../screens/UserProfile';
 import Feedback from '../screens/Feedback';
 
@@ -22,8 +23,9 @@ const Tab = createBottomTabNavigator();
 function HouseNavigator() {
   return (
     <Stack.Navigator screenOptions={{ presentation: 'modal', animation: 'slide_from_bottom' }}>
-      <Stack.Screen name="HomeList" component={HomeList} />
-      <Stack.Screen name="HomeDetails" component={HomeDetails} options={{ headerShown: false }} />
+      <Stack.Screen name="HomeList" component={HomeList} options={{ headerShown: false }} />
+      <Stack.Screen name="HomeDetails" component={HomeDetails} />
+      <Stack.Screen name="HouseLocation" component={HouseLocation} />
       <Stack.Screen name="AddHome" component={AddHome} />
     </Stack.Navigator>
   );

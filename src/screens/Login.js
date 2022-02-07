@@ -68,9 +68,9 @@ const Login = ({ navigation }) => {
               initialValues={{ email: '', password: '' }}
               validationSchema={formSchema}
               onSubmit={(values, actions) => {
+                console.log('values', values);
                 dispatch(userAction.loginUser(values))
                   .then(async (result) => {
-                    console.log(result);
                     if (result.success) {
                       try {
                         await AsyncStorage.setItem('token', result.token);

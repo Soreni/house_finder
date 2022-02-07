@@ -5,7 +5,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 
 import { Colors } from './styles';
 
-function OfflineNotice(props) {
+const OfflineNotice = (props) => {
   const netInfo = useNetInfo();
 
   if (netInfo.type !== 'unknown' && netInfo.isInternetReachable === false)
@@ -16,7 +16,7 @@ function OfflineNotice(props) {
     );
 
   return null;
-}
+};
 
 const styles = StyleSheet.create({
   container: {

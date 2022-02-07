@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
-const ViewMap = ({ gpsLocation }) => {
+const HouseLocation = (props) => {
+  const gpsLocation = props.route.params.gpsLocation;
+
   console.log('gpsLocation', gpsLocation.latitude[0]);
   const [mapRegion, setmapRegion] = useState({
     latitude: parseFloat(gpsLocation.latitude[0]),
@@ -11,6 +13,15 @@ const ViewMap = ({ gpsLocation }) => {
     longitudeDelta: 0.3559,
   });
 
+  // const getMap = () => {
+  //   if (gpsLocation)
+  //     setmapRegion({
+  //       latitude: gpsLocation.latitude[0],
+  //       longitude: gpsLocation.longitude[0],
+  //       latitudeDelta: 0.0922,
+  //       longitudeDelta: 0.3559,
+  //     });
+  // };
   return (
     <View style={styles.container}>
       <MapView style={styles.map} region={mapRegion}>
@@ -19,7 +30,7 @@ const ViewMap = ({ gpsLocation }) => {
     </View>
   );
 };
-export default ViewMap;
+export default HouseLocation;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
