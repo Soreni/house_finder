@@ -1,3 +1,3 @@
-const baseUrl = 'http://d3bd-197-156-95-80.ngrok.io/api/housefinder';
+const baseUrl = 'http://7320-197-156-107-197.ngrok.io/api/housefinder';
 
 export default baseUrl;

@@ -69,7 +69,7 @@ const Signup = ({ navigation }) => {
               password: '',
             }}
             validationSchema={formSchema}
-            onSubmit={(values) => {
+            onSubmit={(values, actions) => {
               dispatch(userAction.registerUser(values))
                 .then(async (result) => {
                   console.log(result);
@@ -81,9 +81,9 @@ const Signup = ({ navigation }) => {
                         text1: 'Registration Succeeded',
                         text2: 'Please Login into your account',
                       });
-                      setTimeout(() => {
-                        navigation.navigate('Login');
-                      }, 500);
+
+                      navigation.navigate('Login');
+                      actions.resetForm();
                     } catch (error) {
                       Toast.show({
                         topOffset: 60,

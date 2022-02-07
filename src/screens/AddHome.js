@@ -102,10 +102,11 @@ const AddHome = (props) => {
               GPSLocation: {},
             }}
             validationSchema={formSchema}
-            onSubmit={(values) => {
-              console.log(values);
+            onSubmit={(values, actions) => {
+              //console.log(values);
               values.postedBy = postedBy;
-              values.images = imageUris;
+
+              imageUris.forEach((imageUri) => values.images.push(imageUri));
               values.GPSLocation = {
                 altitude: gpsLocation.altitude,
                 longitude: gpsLocation.longitude,
@@ -120,11 +121,12 @@ const AddHome = (props) => {
                     text1: 'Registration Succeeded',
                     text2: 'Redirect to House List',
                   });
-                  setTimeout(() => {
-                    props.navigation.navigate('HomeList');
-                  }, 500);
+
+                  props.navigation.navigate('HomeList');
+                  actions.resetForm();
                 })
-                .catch(() => {
+                .catch((err) => {
+                  console.log(err);
                   Toast.show({
                     topOffset: 60,
                     type: 'error',
@@ -151,7 +153,7 @@ const AddHome = (props) => {
                     <Picker.Item label="Select House Type" color="dark" value="" />
                     <Picker.Item label="Flat" value="Flat" />
                     <Picker.Item label="Condominium" value="Condominium" />
-                    <Picker.Item label="Compund" value="Compund" />
+                    <Picker.Item label="Compound" value="Compound" />
                     <Picker.Item label="Apartment" value="Apartment" />
                   </Picker>
                 </View>

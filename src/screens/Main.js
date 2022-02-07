@@ -4,11 +4,11 @@ import { ImageBackground, StyleSheet, View, Image, Text } from 'react-native';
 import { StyledButton, Colors } from '../components/styles';
 const { darkLight, brand, primary, green, secondary } = Colors;
 
-function WelcomeScreen({ navigation }) {
+function Main({ navigation }) {
   return (
     <ImageBackground blurRadius={10} style={styles.background} source={require('../../assets/background.png')}>
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require('../assets/logo.png')} />
+        <Image style={styles.logo} source={require('../../assets/logo.png')} />
         <Text style={styles.tagline}>Sell What You Don't Need</Text>
       </View>
       <View style={styles.buttonsContainer}>
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WelcomeScreen;
+export default Main;

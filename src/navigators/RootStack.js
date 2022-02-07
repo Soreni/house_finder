@@ -8,9 +8,11 @@ import { CredentialContext } from '../components/CredentialContext';
 
 //import custom tabs
 import TabNavigator from './HouseTab';
+
 //screens
 import Login from '../screens/Login';
 import Signup from '../screens/Signup';
+import AuthNavigation from './AuthNavigation';
 
 //colors
 import { Colors } from '../components/styles';

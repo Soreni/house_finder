@@ -16,8 +16,7 @@ export const fecthHouses = () => {
       },
     });
     const data = await result.json();
-    console.log('house action: pass json');
-    console.log(data);
+
     if (data.success) {
       dispatch({
         type: 'FETCH_HOUSES_SUCCESS',
@@ -37,7 +36,7 @@ export const createHouses = (houseData) => {
     houseType,
     unitStructure,
     price,
-    image,
+    images,
     houseNumber,
     isFurnished,
     localAreaName,
@@ -58,7 +57,7 @@ export const createHouses = (houseData) => {
         houseType,
         unitStructure,
         price,
-        image,
+        images: arraybuffer,
         houseNumber,
         isFurnished,
         localAreaName,

@@ -12,7 +12,7 @@ export const EDIT_USER_FAIL = 'EDIT_USER_FAIL';
 
 import BASE_URL from '../../../../../../../ACT/HouseFinder/House-Finder-Frontend/house_finder/src/shared/baseUrl';
 
-//const BASE_URL = 'http://1428-196-189-148-225.ngrok.io/api/housefinder';
+
 
 export const registerUser = (userData) => {
   const { fullName, email, phoneNumber, password } = userData;

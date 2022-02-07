@@ -4,11 +4,13 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import Toast from 'react-native-toast-message';
+import OfflineNotice from './src/components/OfflineNotice';
 
 //app loading
 import AppLoading from 'expo-app-loading';
 //react navigation stack
 import RootStack from './src/navigators/RootStack';
+
 //import store
 import { store } from './src/redux/store';
 
@@ -19,6 +21,7 @@ export default function App() {
   return (
     <>
       <Provider store={store}>
+        <OfflineNotice />
         <RootStack />
         <Toast />
       </Provider>

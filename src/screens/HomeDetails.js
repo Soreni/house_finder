@@ -1,36 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, ScrollView, View, Text, Image } from 'react-native';
 import { useSelector } from 'react-redux';
+import Base64ArrayBuffer from 'base64-arraybuffer';
 
 const HomeDetails = ({ route }) => {
-  const { houseId } = route.params.houseId;
+  const { houseId } = route.params;
+  let base64String = '';
+  const house = useSelector((state) => state.house.house.house.filter((house) => house._id === houseId));
+  console.log('house', house);
 
-  // const house = useSelector((state) => state.house.find((house) => house._id == houseId));
+  // {const check = house.house.house.filter((house) => house._id === houseId);
+  //const { houses } = useSelector((state) => state);
+  let imageUri = {};
 
-  console.log('detail house');
-  console.log(houseId);
+  // if (house) {
+  //   const check = house.house.house.filter((house) => house._id === houseId);
+
+  //   //let data = check[0].images[0].data.base64;
+  //   const photoURI = Base64ArrayBuffer.encode(check[0].images[0].data.toString());
+  //   console.log('photoURI', photoURI);
+  //   // base64String = `data:image/jpg;base64,${photoURI}`;
+  //   //  base64String = btoa(String.fromCharCode(...new Uint8Array(data)));
+  //   //const imageBuffer = Buffer.from(JSON.stringify(base64String))
+  //   // const imgToString = imageBuffer.toString('base64');
+  //   // console.log('base64String', base64String);
+  //   // setImageUri(photoURI);
+  // }
+
   return (
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.heading}>
-          <Text style={styles.title}>unitstructure</Text>
+          <Text style={styles.title}>{house[0].unitStructure}</Text>
         </View>
         <View>
-          <Image source={require('../../assets/house.png')} style={styles.image} />
+          {/* <Image
+            source={{
+              uri: base64String, //data.data in your case
+            }}
+            style={styles.image}
+          /> */}
+          <Image source={require('../../assets/house1.png')} style={styles.image} />
         </View>
         <View style={styles.group}>
-          <Text style={styles.label}>Home Type: </Text>
-          {/* <Text style={styles.value}>{house.houseType}</Text> */}
+          <Text style={styles.label}>House Type: </Text>
+          <Text style={styles.value}>{house[0].houseType}</Text>
         </View>
         <View style={styles.group}>
           <Text style={styles.label}>Price: </Text>
-          <Text style={styles.value}>$200,000</Text>
-          {/* <Text style={styles.value}>{house.price}</Text> */}
+          {/* <Text style={styles.value}>$200,000</Text> */}
+          <Text style={styles.value}>{house[0].price}</Text>
         </View>
         <View style={styles.group}>
-          <Text style={styles.label}>Year Built: </Text>
-          <Text style={styles.value}>2020</Text>
-          {/* <Text style={styles.value}>{house.localAreaName}</Text> */}
+          <Text style={styles.label}>Location: </Text>
+          <Text style={styles.value}>{house[0].localAreaName}</Text>
         </View>
         <View style={styles.group}>
           <Text style={styles.label}>Address: </Text>
@@ -38,11 +61,11 @@ const HomeDetails = ({ route }) => {
         </View>
         <View style={styles.group}>
           <Text style={styles.label}>Contact Person: </Text>
-          {/* <Text style={styles.value}>{house.postedBy.phoneNumber}</Text> */}
+          <Text style={styles.value}>{house[0].postedBy.phoneNumber}</Text>
         </View>
         <View style={styles.group}>
           <Text style={styles.label}>Description: </Text>
-          {/* <Text style={styles.value}>{house.description}</Text> */}
+          <Text style={styles.value}>{house[0].description}</Text>
         </View>
       </View>
     </ScrollView>

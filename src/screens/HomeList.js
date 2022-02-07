@@ -3,42 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { FloatingAction } from 'react-native-floating-action';
 
-import CardComponent from '../components/Card__';
+import Card from '../components/Card__';
+import ActivityIndicator from '../components/ActivityIndicator';
 import * as houseAction from '../redux/actions/houseAction';
-import {
-  StyledContainer,
-  InnerContainer,
-  PageLogo,
-  PageTitle,
-  SubTitle,
-  StyledFormArea,
-  StyledTextInput,
-  StyledTextLabel,
-  LeftIcon,
-  RightIcon,
-  StyledButton,
-  ButtonText,
-  Colors,
-  ExtraText,
-  ValidationMsg,
-} from '../components/styles';
 
 const Homelist = (props) => {
   const dispatch = useDispatch();
   const isMounted = useRef(null);
-  const [house, setHouse] = useState([]);
+  const [house, setHouse] = useState();
   const [error, setError] = useState(false);
-
-  //const { houses } = useSelector((state) => state.house);
+  const [loading, setLoading] = useState(false);
+  const [imageUris, setImageUris] = useState();
 
   useEffect(() => {
     isMounted.current = true;
     if (isMounted.current) {
       dispatch(houseAction.fecthHouses())
         .then((data) => {
-          if (!data.success) setError(true);
-
-          setError(false);
           setHouse([...data.house]);
         })
         .catch((err) => {
@@ -49,18 +30,33 @@ const Homelist = (props) => {
     return () => (isMounted.current = false);
   }, [dispatch, isMounted.current]);
 
+  // const getHouses = () => {
+  //   //setLoading(true);
+  //   dispatch(houseAction.fecthHouses())
+  //     .then((data) => {
+  //       //  setLoading(false);
+  //       if (!data.success) setError(true);
+
+  //       setError(false);
+  //       setHouse([...data.house]);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
+
   return (
     <View style={styles.container}>
       <FlatList
         data={house}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
-          <CardComponent
+          <Card
             navigation={props.navigation}
             title={item.unitStructure}
             houseType={item.houseType}
             price={item.price}
-            image={item.image}
+            images={item.images}
             address={item.address}
             description={item.description}
             localAreaName={item.localAreaName}

@@ -13,6 +13,7 @@ export const Colors = {
   brand: '#4e62b1',
   geen: '#10B981',
   red: '#EF4444',
+  moderateCyan:'#4ecdc4',
   mintBlue: '#88B2CC',
   lightGreen: '#45b15b',
   black: '#000000',
@@ -22,7 +23,6 @@ export const Colors = {
   light: '#f8f4f4',
   lightb: '#fc5c35',
   blueGrey: '#658EA9',
-  mintBlue: '#88B2CC',
 };
 
 const {
@@ -132,7 +132,7 @@ export const StyledTextInput = styled(TextInput)`
   padding-left: 55px;
   padding-right: 55px;
   border-radius: 25px;
-  font-size: 16px;
+  font-size: 18px;
   height: 60px;
   margin-vertical: 5px;
   margin-bottom: 5px;

@@ -1,35 +1,15 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
+import { Text, View, StyleSheet, TouchableWithoutFeedback, ImageBackground } from 'react-native';
 
-import {
-  StyledContainer,
-  InnerContainer,
-  PageLogo,
-  PageTitle,
-  SubTitle,
-  StyledFormArea,
-  StyledTextInput,
-  StyledTextLabel,
-  LeftIcon,
-  RightIcon,
-  StyledButton,
-  ButtonText,
-  Colors,
-  MsgBox,
-  Line,
-  TextLinkContent,
-  TextLink,
-  ExtraView,
-  ExtraText,
-  ValidationMsg,
-  PageBackground,
-} from './styles';
+import { SubTitle, StyledTextInput, StyledTextLabel, Colors } from './styles';
 
 const CardComponent = (props) => {
-  console.log('card component');
-  console.log(props.houseId);
+  // console.log('imagebuffer:', props.images);
+  //const imageUri = props.images.forEach((imageUri) => Buffer.from(imageUri).toString('base64'));
+
+  // console.log('imagebuffer:', imageUri);
   return (
-    <TouchableOpacity onPress={() => props.navigation.navigate('HomeDetails', { houseId: props.houseId })}>
+    <TouchableWithoutFeedback onPress={() => props.navigation.navigate('HomeDetails', { houseId: props.houseId })}>
       <View style={styles.card}>
         <View style={styles.titleContainer}>
           <SubTitle>
@@ -37,8 +17,8 @@ const CardComponent = (props) => {
           </SubTitle>
         </View>
         <View style={styles.imageContainer}>
-          <ImageBackground style={styles.image} source={require('../../assets/house.png')}>
-            <Text style={styles.price}>{props.price}</Text>
+          <ImageBackground style={styles.image} source={require('../../assets/house1.png')}>
+            <Text style={styles.price}>$ {props.price}</Text>
             <View style={styles.year}>
               <StyledTextLabel style={styles.yearText}>{props.localAreaName}</StyledTextLabel>
             </View>
@@ -48,21 +28,27 @@ const CardComponent = (props) => {
           <StyledTextLabel>{props.description}</StyledTextLabel>
         </View>
       </View>
-    </TouchableOpacity>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    shadowColor: 'black',
     shadowOpacity: 0.25,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
-    borderRadius: 10,
+    borderRadius: 15,
     backgroundColor: '#ffffff',
     elevation: 5,
     height: 300,
-    margin: 10,
+    marginBottom: 20,
+    overflow: 'hidden',
+    // card: {
+    //   borderRadius: 15,
+    //   backgroundColor: Colors.primary,
+    //   marginBottom: 20,
+    //   overflow: 'hidden',
+    // },
   },
   titleContainer: {
     height: '15%',

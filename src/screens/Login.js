@@ -67,14 +67,16 @@ const Login = ({ navigation }) => {
             <Formik
               initialValues={{ email: '', password: '' }}
               validationSchema={formSchema}
-              onSubmit={(values) => {
+              onSubmit={(values, actions) => {
                 dispatch(userAction.loginUser(values))
                   .then(async (result) => {
                     console.log(result);
                     if (result.success) {
                       try {
                         await AsyncStorage.setItem('token', result.token);
+
                         navigation.navigate('MainTab');
+                        actions.resetForm();
                       } catch (err) {
                         console.log(err);
                       }
