@@ -25,23 +25,6 @@ const HomeDetails = ({ route }) => {
   const house = useSelector((state) => state.house.house.house.filter((house) => house._id === houseId));
   console.log('house', house);
 
-  // {const check = house.house.house.filter((house) => house._id === houseId);
-  //const { houses } = useSelector((state) => state);
-
-  // if (house) {
-  //   const check = house.house.house.filter((house) => house._id === houseId);
-
-  //   //let data = check[0].images[0].data.base64;
-  //   const photoURI = Base64ArrayBuffer.encode(check[0].images[0].data.toString());
-  //   console.log('photoURI', photoURI);
-  //   // base64String = `data:image/jpg;base64,${photoURI}`;
-  //   //  base64String = btoa(String.fromCharCode(...new Uint8Array(data)));
-  //   //const imageBuffer = Buffer.from(JSON.stringify(base64String))
-  //   // const imgToString = imageBuffer.toString('base64');
-  //   // console.log('base64String', base64String);
-  //   // setImageUri(photoURI);
-  // }
-
   return (
     <ScrollView>
       <View style={styles.container}>

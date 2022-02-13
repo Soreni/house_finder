@@ -3,7 +3,7 @@ export const FETCH_FEEDBACKS_FAIL = 'FETCH_FEEDBACKS_FAIL';
 export const CREATE_FEEDBACKS_SUCCESS = 'CREATE_FEEDBACKS_SUCCESS';
 export const CREATE_FEEDBACKS_FAIL = 'CREATE_FEEDBACKS_FAIL';
 
-import BASE_URL from '../../../../../../../ACT/HouseFinder/House-Finder-Frontend/house_finder/src/shared/baseUrl';
+import BASE_URL from '../../shared/baseUrl';
 
 export const fecthFeedback = () => {
   return async (dispatch) => {
@@ -46,10 +46,8 @@ export const createFeedbacks = (feedbackData) => {
         postedBy,
       }),
     });
-    console.log('after save');
+
     const data = await result.json();
-    console.log('inside dispach');
-    console.log(data);
     if (data.success) {
       dispatch({
         type: 'CREATE_FEEDBACKS_SUCCESS',

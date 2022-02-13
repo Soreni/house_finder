@@ -10,7 +10,7 @@ export const FETCH_USER_FAIL = 'FETCH_USER_FAIL';
 export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER_FAIL = 'EDIT_USER_FAIL';
 
-import BASE_URL from '../../../../../../../ACT/HouseFinder/House-Finder-Frontend/house_finder/src/shared/baseUrl';
+import BASE_URL from '../../shared/baseUrl';
 
 export const registerUser = (userData) => {
   const { fullName, email, phoneNumber, password } = userData;
@@ -47,7 +47,7 @@ export const registerUser = (userData) => {
   };
 };
 
-export const loginUser = (userData) => {
+export const loginUser = (userData, token) => {
   const { email, password } = userData;
   return async (dispatch) => {
     //MAKE POST TO LOGIN USER
@@ -78,12 +78,14 @@ export const loginUser = (userData) => {
   };
 };
 
-export const fecthUser = () => {
+export const fecthUser = (id, token) => {
+  console.log('token', token);
   return async (dispatch) => {
     //MAKE GET Request
     const result = await fetch(`${BASE_URL}/users/${id}`, {
       method: 'GET',
       headers: {
+        'auth-token': token,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },

@@ -2,60 +2,58 @@ import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { Divider } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as userAction from '../redux/actions/userAction';
 const jwtDecode = require('jwt-decode');
 
-import {
-  StyledContainer,
-  InnerContainer,
-  PageLogo,
-  PageTitle,
-  SubTitle,
-  StyledFormArea,
-  StyledTextInput,
-  StyledTextLabel,
-  LeftIcon,
-  RightIcon,
-  StyledButton,
-  ButtonText,
-  Colors,
-  MsgBox,
-  Line,
-  TextLinkContent,
-  TextLink,
-  ExtraView,
-  ExtraText,
-  WelcomeContainer,
-  WelcomeImage,
-  Avatar,
-  StyledIMGButton,
-  StyledProButton,
-} from '../components/styles';
+import { StyledTextLabel, Avatar, StyledIMGButton, StyledProButton } from '../components/styles';
 
 const UserProfile = (props) => {
+  const dispatch = useDispatch();
   const [postedBy, setPostedBy] = useState();
+  const [token, setToken] = useState();
+  const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
     loadProfile();
+    getUser();
   });
   const loadProfile = async () => {
-    const token = await AsyncStorage.getItem('token');
-    const decode = jwtDecode(token);
+    const _token = await AsyncStorage.getItem('token');
+    setToken(_token);
+    const decode = jwtDecode(_token);
     setPostedBy(decode._id);
-    console.log(decode);
   };
-  //  const {email, name, photoUrl} = route.params;
+  const getUser = () => {
+    if (postedBy) {
+      dispatch(userAction.fecthUser(postedBy, token))
+        .then((data) => {
+          setCurrentUser(data.user);
+          console.log('data', data.user);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  };
+
+  const logOut = () => {
+    AsyncStorage.removeItem('token');
+    props.navigation.navigate('Login');
+  };
+
   const AvatarImg = require('../../assets/logo.png');
   return (
     <View>
       <View style={styles.header}>
         <View style={styles.headerContent}>
           <Avatar source={require('../../assets/logo.png')} />
-          <Text style={styles.name}>Abebe Kebede </Text>
-          <Text style={styles.userInfo}>abe2020@mail.com </Text>
-          <Text style={styles.userInfo}>Addis Ababa </Text>
+
+          <Text style={styles.name}>{currentUser.fullName}</Text>
+          <Text style={styles.userInfo}>{currentUser.email}</Text>
         </View>
       </View>
       <View style={styles.btn}>
@@ -72,13 +70,7 @@ const UserProfile = (props) => {
       <Divider />
       <View>
         <StyledProButton onPress={() => {}}>
-          <StyledTextLabel
-            onPress={() => {
-              navigation.navigate('Login');
-            }}
-          >
-            Logout
-          </StyledTextLabel>
+          <StyledTextLabel onPress={logOut}>Logout</StyledTextLabel>
         </StyledProButton>
       </View>
     </View>

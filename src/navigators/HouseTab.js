@@ -6,7 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 //import screens
 import AddHome from '../screens/AddHome';
-import SearchHome from '../screens/SearchHome';
+import SearchHouse from '../screens/SearchHouse';
 import HomeDetails from '../screens/HomeDetails';
 import HomeList from '../screens/HomeList';
 import HouseLocation from '../screens/HouseLocation';
@@ -34,7 +34,7 @@ function HouseNavigator() {
 function SearchNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="SearchHome" component={SearchHome} />
+      <Stack.Screen name="SearchHouse" component={SearchHouse} />
     </Stack.Navigator>
   );
 }

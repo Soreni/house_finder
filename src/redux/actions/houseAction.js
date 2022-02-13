@@ -3,8 +3,7 @@ export const FETCH_HOUSES_FAIL = 'FETCH_HOUSES_FAIL';
 export const CREATE_HOUSES_SUCCESS = 'CREATE_HOUSES_SUCCESS';
 export const CREATE_HOUSES_FAIL = 'CREATE_HOUSES_FAIL';
 
-import BASE_URL from '../../../../../../../ACT/HouseFinder/House-Finder-Frontend/house_finder/src/shared/baseUrl';
-
+import BASE_URL from '../../shared/baseUrl';
 export const fecthHouses = () => {
   return async (dispatch) => {
     //MAKE GET Request
@@ -31,7 +30,7 @@ export const fecthHouses = () => {
     return data;
   };
 };
-export const createHouses = (houseData) => {
+export const createHouses = (houseData, token) => {
   const {
     houseType,
     unitStructure,
@@ -50,6 +49,7 @@ export const createHouses = (houseData) => {
     const result = await fetch(`${BASE_URL}/houses/register`, {
       method: 'POST',
       headers: {
+        'auth-token': token,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
