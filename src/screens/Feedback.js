@@ -64,28 +64,31 @@ const Feedback = (props) => {
             onSubmit={(values) => {
               values.postedBy = postedBy;
               console.log(values);
-              dispatch(feedbackAction.createFeedbacks(values))
-                .then((result) => {
-                  console.log(result);
-                  Toast.show({
-                    topOffset: 60,
-                    type: 'success',
-                    text1: 'Registration Succeeded',
-                    text2: '',
-                  });
-                  setTimeout(() => {
+              try {
+                dispatch(feedbackAction.createFeedbacks(values))
+                  .then((result) => {
+                    console.log(result);
+                    Toast.show({
+                      topOffset: 60,
+                      type: 'success',
+                      text1: 'Registration Succeeded',
+                      text2: 'Redirect to Profile Screen',
+                    });
+
                     props.navigation.navigate('UserProfile');
-                  }, 500);
-                })
-                .catch((error) => {
-                  console.log(error);
-                  Toast.show({
-                    topOffset: 60,
-                    type: 'error',
-                    text1: 'Something went wrong',
-                    text2: 'Please try again',
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                    Toast.show({
+                      topOffset: 60,
+                      type: 'error',
+                      text1: 'Something went wrong',
+                      text2: 'Please try again',
+                    });
                   });
-                });
+              } catch (error) {
+                console.log(error);
+              }
             }}
           >
             {(props) => (

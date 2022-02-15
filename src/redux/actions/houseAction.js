@@ -6,27 +6,33 @@ export const CREATE_HOUSES_FAIL = 'CREATE_HOUSES_FAIL';
 import BASE_URL from '../../shared/baseUrl';
 export const fecthHouses = () => {
   return async (dispatch) => {
+    let result;
+    let data;
     //MAKE GET Request
-    const result = await fetch(`${BASE_URL}/houses/`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await result.json();
+    try {
+      result = await fetch(`${BASE_URL}/houses/`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
 
-    if (data.success) {
-      dispatch({
-        type: 'FETCH_HOUSES_SUCCESS',
-        payload: data,
-      });
-    } else {
-      dispatch({
-        type: 'FETCH_HOUSES_FAIL',
-      });
+      data = await result.json();
+
+      if (data.success) {
+        dispatch({
+          type: 'FETCH_HOUSES_SUCCESS',
+          payload: data,
+        });
+      } else {
+        dispatch({
+          type: 'FETCH_HOUSES_FAIL',
+        });
+      }
+    } catch (err) {
+      console.log(err);
     }
-    // console.log(`check data ${data}`);
     return data;
   };
 };

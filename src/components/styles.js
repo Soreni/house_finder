@@ -13,7 +13,7 @@ export const Colors = {
   brand: '#4e62b1',
   geen: '#10B981',
   red: '#EF4444',
-  moderateCyan:'#4ecdc4',
+  moderateCyan: '#4ecdc4',
   mintBlue: '#88B2CC',
   lightGreen: '#45b15b',
   black: '#000000',

@@ -59,7 +59,7 @@ const Signup = ({ navigation }) => {
       <StyledContainer>
         <StatusBar style="dark" />
         <InnerContainer>
-          <PageLogo resizeMode="cover" source={require('../../assets/logo.png')} />
+          <PageLogo resizeMode="cover" source={require('../../assets/hplogo.png')} />
           <PageTitle>House Finder</PageTitle>
           <Formik
             initialValues={{
@@ -101,58 +101,55 @@ const Signup = ({ navigation }) => {
                 });
             }}
           >
-            {({ handleChange, handleBlur, handleSubmit, touched, errors, values }) => (
+            {(props) => (
               <StyledFormArea>
                 <MyTextInput
                   label="Full Name"
                   icon="person"
                   placeholder="Abebe Belete Desta"
                   placeholderTextColor={darkLight}
-                  onChangeText={handleChange('fullName')}
-                  onBlur={handleBlur('fullName')}
-                  value={values.fullName}
-                  autoCapitalize={'characters'}
+                  onChangeText={props.handleChange('fullName')}
+                  onBlur={props.handleBlur('fullName')}
+                  value={props.values.fullName}
                 />
-                <ValidationMsg>{touched.fullName && errors.fullName}</ValidationMsg>
+                <ValidationMsg>{props.touched.fullName && props.errors.fullName}</ValidationMsg>
                 <MyTextInput
                   label="Email Address"
                   icon="mail"
                   placeholder="alem@gmail.com"
                   placeholderTextColor={darkLight}
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  value={values.email}
+                  onChangeText={props.handleChange('email')}
+                  onBlur={props.handleBlur('email')}
+                  value={props.values.email}
                   keyboardType="email-address"
-                  autoCapitalize={'characters'}
                 />
-                <ValidationMsg>{touched.email && errors.email}</ValidationMsg>
+                <ValidationMsg>{props.touched.email && props.errors.email}</ValidationMsg>
                 <MyTextInput
                   label="Phone Number"
                   icon="phone"
                   placeholder="0932456787"
                   placeholderTextColor={darkLight}
-                  onChangeText={handleChange('phoneNumber')}
-                  onBlur={handleBlur('phoneNumber')}
-                  value={values.phoneNumber}
-                  autoCapitalize={'characters'}
+                  onChangeText={props.handleChange('phoneNumber')}
+                  onBlur={props.handleBlur('phoneNumber')}
+                  value={props.values.phoneNumber}
                 />
-                <ValidationMsg>{touched.phoneNumber && errors.phoneNumber}</ValidationMsg>
+                <ValidationMsg>{props.touched.phoneNumber && props.errors.phoneNumber}</ValidationMsg>
                 <MyTextInput
                   label="Password"
                   icon="lock"
                   placeholder="* * * * * * * * * *"
                   placeholderTextColor={darkLight}
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  value={values.password}
+                  onChangeText={props.handleChange('password')}
+                  onBlur={props.handleBlur('password')}
+                  value={props.values.password}
                   secureTextEntry={hidePassword}
                   isPassword={true}
                   hidePassword={hidePassword}
                   setHidePassword={setHidePassword}
                 />
-                <ValidationMsg>{touched.password && errors.password}</ValidationMsg>
+                <ValidationMsg>{props.touched.password && props.errors.password}</ValidationMsg>
                 <MsgBox>---</MsgBox>
-                <StyledButton onPress={handleSubmit}>
+                <StyledButton onPress={props.handleSubmit}>
                   <ButtonText>Signup</ButtonText>
                 </StyledButton>
                 <Line />
@@ -183,12 +180,12 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
       <TouchableOpacity>
         <StyledTextInput {...probs} />
       </TouchableOpacity>
-
+      {/* 
       {isPassword && (
         <RightIcon onPress={() => setHidePassword(!hidePassword)}>
           <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={30} color={darkLight} />
         </RightIcon>
-      )}
+      )} */}
     </View>
   );
 };

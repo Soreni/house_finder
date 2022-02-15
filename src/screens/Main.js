@@ -1,19 +1,23 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, View, Image, Text } from 'react-native';
 
-import { StyledButton, Colors } from '../components/styles';
+import { StyledButton, ButtonText, Colors } from '../components/styles';
 const { darkLight, brand, primary, green, secondary } = Colors;
 
 function Main({ navigation }) {
   return (
     <ImageBackground blurRadius={10} style={styles.background} source={require('../../assets/background.png')}>
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require('../../assets/logo.png')} />
-        <Text style={styles.tagline}>Sell What You Don't Need</Text>
+        <Image style={styles.logo} source={require('../../assets/hplogo.png')} />
+        <Text style={styles.tagline}>Search More with House Finder</Text>
       </View>
       <View style={styles.buttonsContainer}>
-        <StyledButton title="Login" onPress={() => navigation.navigate('Login')} />
-        <StyledButton title="Register" color={secondary} onPress={() => navigation.navigate('Signup')} />
+        <StyledButton onPress={() => navigation.navigate('Login')}>
+          <ButtonText>Log In</ButtonText>
+        </StyledButton>
+        <StyledButton color={secondary} onPress={() => navigation.navigate('Signup')}>
+          <ButtonText>Sign In</ButtonText>
+        </StyledButton>
       </View>
     </ImageBackground>
   );

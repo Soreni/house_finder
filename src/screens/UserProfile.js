@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Divider } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
@@ -11,66 +11,59 @@ const jwtDecode = require('jwt-decode');
 
 import { StyledTextLabel, Avatar, StyledIMGButton, StyledProButton } from '../components/styles';
 
+import AuthContext from '../auth/context';
+
 const UserProfile = (props) => {
   const dispatch = useDispatch();
+  const { user, setUser } = useContext(AuthContext);
   const [postedBy, setPostedBy] = useState();
+  const [email, setEmail] = useState();
+  const [fullName, setFullName] = useState();
   const [token, setToken] = useState();
   const [currentUser, setCurrentUser] = useState();
 
-  useEffect(() => {
-    loadProfile();
-    getUser();
-  });
-  const loadProfile = async () => {
-    const _token = await AsyncStorage.getItem('token');
-    setToken(_token);
-    const decode = jwtDecode(_token);
-    setPostedBy(decode._id);
-  };
-  const getUser = () => {
-    if (postedBy) {
-      dispatch(userAction.fecthUser(postedBy, token))
-        .then((data) => {
-          setCurrentUser(data.user);
-          console.log('data', data.user);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
-  };
-
-  const logOut = () => {
-    AsyncStorage.removeItem('token');
-    props.navigation.navigate('Login');
-  };
+  //for edit user will be used later
+  // const getUser = () => {
+  //   try {
+  //     console.log('postedby and token', postedBy, token);
+  //     dispatch(userAction.fecthUser(postedBy, token))
+  //       .then((data) => {
+  //         setCurrentUser(data.user);
+  //         console.log('data', data.user);
+  //       })
+  //       .catch((err) => {
+  //         console.error(err);
+  //       });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const AvatarImg = require('../../assets/logo.png');
   return (
     <View>
       <View style={styles.header}>
         <View style={styles.headerContent}>
-          <Avatar source={require('../../assets/logo.png')} />
+          <Avatar source={require('../../assets/pro.png')} />
 
-          <Text style={styles.name}>{currentUser.fullName}</Text>
-          <Text style={styles.userInfo}>{currentUser.email}</Text>
+          <Text style={styles.name}>{user.fullName}</Text>
+          <Text style={styles.userInfo}>{user.email}</Text>
         </View>
       </View>
       <View style={styles.btn}>
-        <StyledProButton>
-          <StyledTextLabel
-            onPress={() => {
-              props.navigation.navigate('Feedback');
-            }}
-          >
-            Feedback
-          </StyledTextLabel>
+        <StyledProButton
+          onPress={() => {
+            props.navigation.navigate('Feedback');
+          }}
+        >
+          <StyledTextLabel>Feedback</StyledTextLabel>
         </StyledProButton>
       </View>
       <Divider />
+
       <View>
-        <StyledProButton onPress={() => {}}>
-          <StyledTextLabel onPress={logOut}>Logout</StyledTextLabel>
+        <StyledProButton onPress={() => setUser(null)}>
+          <StyledTextLabel>Logout</StyledTextLabel>
         </StyledProButton>
       </View>
     </View>

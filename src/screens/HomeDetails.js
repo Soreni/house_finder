@@ -21,7 +21,6 @@ import {
 const HomeDetails = ({ route }) => {
   const navigation = useNavigation();
   const { houseId } = route.params;
-  let base64String = '';
   const house = useSelector((state) => state.house.house.house.filter((house) => house._id === houseId));
   console.log('house', house);
 
@@ -46,7 +45,7 @@ const HomeDetails = ({ route }) => {
         </View>
         <View style={styles.group}>
           <Text style={styles.label}>Price: </Text>
-          {/* <Text style={styles.value}>$200,000</Text> */}
+
           <Text style={styles.value}>{house[0].price}</Text>
         </View>
         <View style={styles.group}>

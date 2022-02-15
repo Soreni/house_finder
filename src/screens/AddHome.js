@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { Image, View, Button, Switch, Text, Alert } from 'react-native';
@@ -38,6 +38,8 @@ import ImageInputList from '../components/ImageInputList';
 //import house action
 import * as houseAction from '../redux/actions/houseAction';
 
+import AuthContext from '../auth/context';
+
 const formSchema = yup.object({
   houseType: yup.string().required(),
   unitStructure: yup.string().required(),
@@ -50,6 +52,7 @@ const formSchema = yup.object({
 });
 const AddHome = (props) => {
   const dispatch = useDispatch();
+  const { user } = useContext(AuthContext);
   const gpsLocation = useLocation();
   const [postedBy, setPostedBy] = useState();
   const [imageUris, setImageUris] = useState([]);
@@ -104,7 +107,7 @@ const AddHome = (props) => {
             validationSchema={formSchema}
             onSubmit={(values, actions) => {
               //console.log(values);
-              values.postedBy = postedBy;
+              values.postedBy = user._id;
 
               imageUris.forEach((imageUri) => values.images.push(imageUri));
               values.GPSLocation = {
@@ -112,7 +115,7 @@ const AddHome = (props) => {
                 longitude: gpsLocation.longitude,
                 latitude: gpsLocation.latitude,
               };
-              dispatch(houseAction.createHouses(values))
+              dispatch(houseAction.createHouses(values, token))
                 .then((result) => {
                   console.log(result);
                   Toast.show({

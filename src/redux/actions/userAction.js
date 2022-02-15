@@ -47,7 +47,7 @@ export const registerUser = (userData) => {
   };
 };
 
-export const loginUser = (userData, token) => {
+export const loginUser = (userData) => {
   const { email, password } = userData;
   return async (dispatch) => {
     //MAKE POST TO LOGIN USER
@@ -63,7 +63,6 @@ export const loginUser = (userData, token) => {
       }),
     });
     const data = await result.json();
-    console.log(data);
     if (data.success) {
       dispatch({
         type: 'LOGIN_USER_SUCCESS',
@@ -79,18 +78,24 @@ export const loginUser = (userData, token) => {
 };
 
 export const fecthUser = (id, token) => {
-  console.log('token', token);
   return async (dispatch) => {
     //MAKE GET Request
-    const result = await fetch(`${BASE_URL}/users/${id}`, {
-      method: 'GET',
-      headers: {
-        'auth-token': token,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
+    let result;
+    try {
+      result = await fetch(`${BASE_URL}/users/${id}`, {
+        method: 'GET',
+        headers: {
+          'auth-token': token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
     const data = await result.json();
+    console.log('innside result', data);
     if (data.success) {
       dispatch({
         type: 'FETCH_USER_SUCCESS',

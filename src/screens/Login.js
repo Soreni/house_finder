@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, View, Alert } from 'react-native';
@@ -6,6 +6,8 @@ import { Formik } from 'formik';
 import { Octicons, Ionicons, Fontisto } from '@expo/vector-icons';
 import * as yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigationContainerRef } from '@react-navigation/native';
+const jwtDecode = require('jwt-decode');
 
 import {
   StyledContainer,
@@ -36,6 +38,7 @@ const { darkLight, brand, primary, green } = Colors;
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 //actions handling
 import * as userAction from '../redux/actions/userAction';
+import AuthContext from '../auth/context';
 
 const formSchema = yup.object({
   email: yup.string().email().required(),
@@ -44,6 +47,8 @@ const formSchema = yup.object({
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
+  const authContext = useContext(AuthContext);
+  const navigationRef = useNavigationContainerRef();
   const [hidePassword, setHidePassword] = useState(true);
   const [message, setMessage] = useState();
   const [messageType, setMessageType] = useState();
@@ -60,7 +65,7 @@ const Login = ({ navigation }) => {
         <StyledContainer>
           <StatusBar style="dark" />
           <InnerContainer>
-            <PageLogo resizeMode="cover" source={require('../../assets/logo.png')} />
+            <PageLogo resizeMode="cover" source={require('../../assets/hplogo.png')} />
             <PageTitle>House Finder</PageTitle>
             {/* <SubTitle>Experience the Reliable</SubTitle> */}
 
@@ -68,14 +73,15 @@ const Login = ({ navigation }) => {
               initialValues={{ email: '', password: '' }}
               validationSchema={formSchema}
               onSubmit={(values, actions) => {
-                console.log('values', values);
                 dispatch(userAction.loginUser(values))
                   .then(async (result) => {
                     if (result.success) {
                       try {
                         await AsyncStorage.setItem('token', result.token);
-
-                        navigation.navigate('MainTab');
+                        const user = jwtDecode(result.token);
+                        authContext.setUser(user);
+                        console.log(user);
+                        //navigationRef.navigate('MainTab');
                         actions.resetForm();
                       } catch (err) {
                         console.log(err);

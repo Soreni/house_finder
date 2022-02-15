@@ -28,14 +28,14 @@ function RootStack() {
           headerStyle: {
             backgroundColor: 'transparent',
           },
-          headerTintColor: tertiary,
+          headerTintColor: Colors.blueGrey,
           headerTransparent: true,
           headerTitle: '',
           headerLeftContainerStyle: {
             padding: 20,
           },
         }}
-        initialRouteName="Login"
+        initialRouteName="HomeList"
       >
         <>
           <Stack.Screen
@@ -44,8 +44,8 @@ function RootStack() {
             component={TabNavigator}
           />
 
-          <Stack.Screen name="Signup" component={Signup} />
-          <Stack.Screen name="Login" component={Login} />
+          {/* <Stack.Screen name="Signup" component={Signup} />
+          <Stack.Screen name="Login" component={Login} /> */}
         </>
       </Stack.Navigator>
     </NavigationContainer>

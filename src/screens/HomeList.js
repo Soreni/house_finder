@@ -12,7 +12,7 @@ import { Colors, RightIcon } from '../components/styles';
 
 const Homelist = (props) => {
   const dispatch = useDispatch();
-  const isMounted = useRef(null);
+  const isMounted = useRef(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [imageUris, setImageUris] = useState();
@@ -23,18 +23,24 @@ const Homelist = (props) => {
   useEffect(() => {
     isMounted.current = true;
     if (isMounted.current) {
-      dispatch(houseAction.fecthHouses())
-        .then((data) => {
-          setFilteredData([...data.house]);
-          setHouseData([...data.house]);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      try {
+        dispatch(houseAction.fecthHouses())
+          .then((data) => {
+            if (data) {
+              setFilteredData([...data.house]);
+              setHouseData([...data.house]);
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      } catch (err) {
+        console.log(err);
+      }
     }
 
     return () => (isMounted.current = false);
-  }, [dispatch, isMounted.current]);
+  }, [dispatch]);
 
   const searchHouse = (text) => {
     // const current = gpsLocation.map((loc)=>{loc.la})
